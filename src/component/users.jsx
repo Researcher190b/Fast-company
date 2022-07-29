@@ -1,38 +1,52 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import propTypes from "prop-types";
+import { paginate } from "./utils/paginate";
 import Pagination from "./pagination";
 import User from "./user";
-import { paginate } from "./utils/paginate";
-import GroupList from "./groupList";
 import api from "../api";
+import GroupList from "./groupList";
 
-const Users = ({ users, handleDelete, ...rest }) => {
-    const count = users.length;
-    const pageSize = 4;
+const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
-    const [professions] = useState(api.professions.fetchAll());
+    const [professions, setProfessions] = useState();
+    const [selectedProf, setSelectedProf] = useState();
+    const count = allUsers.length;
+    const pageSize = 4;
+
+    useEffect(() => {
+        api.professions.fetchAll().then((date) =>
+            setProfessions(
+                Object.assign(date, {
+                    allProffession: { name: "Всё профессии" }
+                })
+            )
+        );
+    }, []);
+
+    const handleProfessionSelect = (item) => {
+        setSelectedProf(item);
+    };
+
     const handlePageChange = (pageIndex) => {
-        console.log("page: ", pageIndex);
         setCurrentPage(pageIndex);
     };
 
-    const handleProfessionSelect = (params) => {
-        console.log(params);
-    };
-    console.log(professions);
+    const filteredUsers =
+        selectedProf && selectedProf._id
+            ? allUsers.filter((user) => user.profession === selectedProf)
+            : allUsers;
+    const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
-    // const paginate = (items, pageNumber, pageSize) => {
-    //   const startIndex = (pageNumber - 1) * pageSize;
-    //   return [...items].splice(startIndex, pageSize);
-    // }; // перенесли в paginate.js
-
-    const userCrop = paginate(users, currentPage, pageSize);
     return (
         <>
-            <GroupList
-                items={professions}
-                onItemSelect={handleProfessionSelect}
-            />
-            {count !== 0 ? (
+            {professions && (
+                <GroupList
+                    selectedItem={selectedProf}
+                    items={professions}
+                    onItemSelect={handleProfessionSelect}
+                />
+            )}
+            {count > 0 && (
                 <table className="table">
                     <thead>
                         <tr>
@@ -47,18 +61,10 @@ const Users = ({ users, handleDelete, ...rest }) => {
                     </thead>
                     <tbody>
                         {userCrop.map((user) => (
-                            <User
-                                key={user._id}
-                                s
-                                {...user}
-                                handleDelete={handleDelete}
-                                {...rest}
-                            />
+                            <User {...rest} {...user} key={user._id} />
                         ))}
                     </tbody>
                 </table>
-            ) : (
-                ""
             )}
             <Pagination
                 itemsCount={count}
@@ -68,6 +74,9 @@ const Users = ({ users, handleDelete, ...rest }) => {
             />
         </>
     );
+};
+Users.propTypes = {
+    users: propTypes.array
 };
 
 export default Users;

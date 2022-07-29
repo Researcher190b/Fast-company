@@ -7,7 +7,10 @@ export const professions = {
     cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
 };
 
+// функция для вызова всех user. Используем асинхронный метод.
+
 const fetchAll = () =>
+// создаём новые промисы // аргументы - resolve, regect - положительны и отрицательные исходы
     new Promise((resolve) => {
         window.setTimeout(function () {
             resolve(professions);
