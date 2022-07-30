@@ -1,7 +1,6 @@
 import React, { useState } from "react"; // React
 import Users from "./component/users"; // скелет (каркас)
 import api from "./api"; //  визуальная часть
-import SearchStatus from "./component/searchStatus";
 
 function App() {
     // Объявление новой переменной состояния "users"
@@ -23,7 +22,6 @@ function App() {
 
     return (
         <div>
-            <SearchStatus length={users.length} />
             <Users
                 users={users}
                 handleDelete={handleDelete}

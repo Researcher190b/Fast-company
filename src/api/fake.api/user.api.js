@@ -1,3 +1,11 @@
+// =====================================
+// =        Добавить по заданию        =
+// =====================================
+
+// import { professionsObject as professions } from "./professions.api";
+
+// ======================================
+
 import { professions } from "./professions.api";
 
 const qualities = {
@@ -143,7 +151,25 @@ const users = [
         bookmark: false
     }
 ];
+
+//  fetchAll - возращает список со всеми зависим.
 export function fetchAll() {
-    //  fetchAll - возращает список со всеми зависим.
     return users;
 }
+
+// =====================================
+// =        Добавить по заданию        =
+// =====================================
+
+// const fetchAll = () =>
+//     new Promise((resolve) => {
+//         window.setTimeout(function () {
+//             resolve(users);
+//         }, 2000);
+//     });
+
+// export default {
+//     fetchAll
+// };
+
+// ======================================
