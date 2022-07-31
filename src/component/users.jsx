@@ -11,7 +11,6 @@ const Users = ({ users: allUsers, ...rest }) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
-    // const [users] = useState();
     const pageSize = 4;
 
     useEffect(() => {
@@ -23,6 +22,7 @@ const Users = ({ users: allUsers, ...rest }) => {
             )
         );
     }, []);
+
     useEffect(() => {
         setCurrentPage(1);
     }, [selectedProf]);
@@ -37,8 +37,16 @@ const Users = ({ users: allUsers, ...rest }) => {
 
     const filteredUsers =
         selectedProf && selectedProf._id
-            ? allUsers.filter((user) => user.profession === selectedProf)
+            ? allUsers.filter((user) => {
+                  return (
+                      JSON.stringify(user.profession) ===
+                      JSON.stringify(selectedProf)
+                  );
+              })
             : allUsers;
+
+    // console.log(filteredUsers); // выводим массив
+
     const count = filteredUsers.length;
     const userCrop = paginate(filteredUsers, currentPage, pageSize);
 
@@ -53,17 +61,6 @@ const Users = ({ users: allUsers, ...rest }) => {
                     />
                 </div>
             )}
-
-            {/* {users && (
-                <div className="d-flex flex-column flex-shrink bd-highlight p-4">
-                    <GroupList
-                        selectedItem={selectedProf}
-                        items={professions}
-                        onItemSelect={handleProfessionSelect}
-                    />
-                </div>
-            )} */}
-
             <div className="d-flex flex-column">
                 <SearchStatus length={count} />
                 {count > 0 && (
@@ -97,6 +94,7 @@ const Users = ({ users: allUsers, ...rest }) => {
         </div>
     );
 };
+
 Users.propTypes = {
     users: propTypes.array
 };

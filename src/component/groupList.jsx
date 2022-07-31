@@ -9,6 +9,7 @@ const GroupList = ({
     selectedItem
 }) => {
     // console.log(Object.keys(items));
+
     return (
         <ul className="list-group">
             {Object.keys(items).map((item) => (
@@ -35,13 +36,13 @@ GroupList.defaultProps = {
 };
 
 GroupList.propTypes = {
-    items: propTypes.object.isRequired,
+    // items: propTypes.object.isRequired, // прошлый код
 
     // =====================================
     // =        Добавить по заданию        =
     // =====================================
 
-    // item: propTypes.oneOfType(propTypes.object, propTypes.array),
+    item: propTypes.oneOfType(propTypes.object, propTypes.array),
 
     // ======================================
 
