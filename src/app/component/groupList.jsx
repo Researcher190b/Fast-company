@@ -8,8 +8,7 @@ const GroupList = ({
     onItemSelect,
     selectedItem
 }) => {
-    // console.log(Object.keys(items));
-
+    // if (!Array.isArray(items)) {
     return (
         <ul className="list-group">
             {Object.keys(items).map((item) => (
@@ -17,9 +16,8 @@ const GroupList = ({
                     key={items[item][valueProperty]}
                     className={
                         "list-group-item" +
-                        (items[item] === selectedItem ? "active " : "")
+                        (items[item] === selectedItem ? " active" : "")
                     }
-                    // className="list-group-item"
                     onClick={() => onItemSelect(items[item])}
                     role="button"
                 >
@@ -28,6 +26,24 @@ const GroupList = ({
             ))}
         </ul>
     );
+    // }
+    // return (
+    //     <ul className="list-group">
+    //         {items.map((item) => (
+    //             <li
+    //                 key={item[valueProperty]}
+    //                 className={
+    //                     "list-group-item" +
+    //                     (item === selectedItem ? " active" : "")
+    //                 }
+    //                 onClick={() => onItemSelect(item)}
+    //                 role="button"
+    //             >
+    //                 {item[contentProperty]}
+    //             </li>
+    //         ))}
+    //     </ul>
+    // );
 };
 
 GroupList.defaultProps = {
@@ -36,16 +52,7 @@ GroupList.defaultProps = {
 };
 
 GroupList.propTypes = {
-    // items: propTypes.object.isRequired, // прошлый код
-
-    // =====================================
-    // =        Добавить по заданию        =
-    // =====================================
-
-    item: propTypes.oneOfType(propTypes.object, propTypes.array),
-
-    // ======================================
-
+    items: propTypes.oneOfType(propTypes.object, propTypes.array),
     valueProperty: propTypes.string.isRequired,
     contentProperty: propTypes.string.isRequired,
     onItemSelect: propTypes.func,
