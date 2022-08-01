@@ -7,12 +7,6 @@ export const professionsObject = {
     cook: { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
 };
 
-// =====================================
-// =        Добавить по заданию        =
-// =====================================
-
-// функция для вызова всех user. Используем асинхронный метод.
-
 export const professions = [
     { _id: "67rdca3eeb7f6fgeed471818", name: "Доктор" },
     { _id: "67rdca3eeb7f6fgeed471820", name: "Официант" },
@@ -21,8 +15,6 @@ export const professions = [
     { _id: "67rdca3eeb7f6fgeed471824", name: "Актер" },
     { _id: "67rdca3eeb7f6fgeed471829", name: "Повар" }
 ];
-
-// ======================================
 
 const fetchAll = () =>
     // создаём новые промисы // аргументы - resolve, regect - положительны и отрицательные исходы

@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 
 const SearchStatus = ({ length }) => {
     // const { length } = props  //  аналог записи ({length})
@@ -39,6 +40,9 @@ const SearchStatus = ({ length }) => {
             </h1>
         </>
     );
+};
+SearchStatus.propTypes = {
+    length: PropTypes.number
 };
 
 export default SearchStatus;

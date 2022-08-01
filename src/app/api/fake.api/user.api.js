@@ -1,12 +1,4 @@
-// =====================================
-// =        Добавить по заданию        =
-// =====================================
-
 import { professionsObject as professions } from "./professions.api";
-
-// ======================================
-
-// import { professions } from "./professions.api"; // прошлый код
 
 const qualities = {
     tedious: {
@@ -152,18 +144,6 @@ const users = [
     }
 ];
 
-//  fetchAll - возращает список со всеми зависим.
-
-// export function fetchAll() {
-//     return users;
-// }
-
-// прошлый код
-
-// =====================================
-// =        Добавить по заданию        =
-// =====================================
-
 const fetchAll = () =>
     new Promise((resolve) => {
         window.setTimeout(function () {
@@ -174,5 +154,3 @@ const fetchAll = () =>
 export default {
     fetchAll
 };
-
-// ======================================
