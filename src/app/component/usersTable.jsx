@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import TableHeader from "./tableHeader";
-// import TableBody from "./tableBody";
 import BookMark from "./bookmark";
 import QualitiesList from "./qualitiesList";
 import Table from "./table";
@@ -56,24 +54,11 @@ const UserTable = ({
             data={users}
         />
     );
-    // return (
-    //     <Table
-    //         onSort={onSort}
-    //         selectedSort={selectedSort}
-    //         columns={columns}
-    //         data={users}
-    //     >
-    //         <TableHeader {...{ onSort, selectedSort, columns }} />
-    //         <TableBody {...{ columns, data: users }} />
-    //     </Table>
-    // );
 };
 UserTable.propTypes = {
-    // PropTypes - ошибка; propTypes - верный ответ
-    // добавляем типизацию
-    users: PropTypes.array.isRequired, // массив пользователей
-    onSort: PropTypes.func.isRequired, // функция метода onSort
-    selectedSort: PropTypes.object.isRequired, // ...
+    users: PropTypes.array.isRequired,
+    onSort: PropTypes.func.isRequired,
+    selectedSort: PropTypes.object.isRequired,
     onToggleBookMark: PropTypes.func.isRequired,
     onDelete: PropTypes.func.isRequired
 };
