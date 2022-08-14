@@ -17,7 +17,6 @@ export const professions = [
 ];
 
 const fetchAll = () =>
-    // создаём новые промисы // аргументы - resolve, regect - положительны и отрицательные исходы
     new Promise((resolve) => {
         window.setTimeout(function () {
             resolve(professions);
