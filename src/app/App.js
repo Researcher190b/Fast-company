@@ -1,9 +1,9 @@
 import React from "react";
-import Users from "./component/layouts/users";
+import Users from "./layouts/users";
 import { Route, Switch, Redirect } from "react-router-dom";
-import Main from "./component/layouts/main";
-import Login from "./component/layouts/login";
-import NavBar from "./component/navBar";
+import Main from "./layouts/main";
+import Login from "./layouts/login";
+import NavBar from "./components/navBar";
 // import NotFound from "./component/layouts/not-found";
 
 function App() {
