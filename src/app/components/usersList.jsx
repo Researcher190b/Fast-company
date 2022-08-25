@@ -7,7 +7,7 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import _ from "lodash";
-import Search from "../components/search";
+import Search from "./search/search";
 
 const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -84,7 +84,6 @@ const UsersList = () => {
             <div className="d-flex">
                 {professions && (
                     <div className="d-flex flex-column flex-shrink bd-highlight p-4">
-                        <Search />;
                         <GroupList
                             selectedItem={selectedProf}
                             items={professions}
@@ -101,6 +100,7 @@ const UsersList = () => {
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <Search />
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
