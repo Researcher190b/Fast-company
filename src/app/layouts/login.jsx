@@ -57,7 +57,7 @@ const Login = () => {
         console.log(data);
     };
     return (
-        <div class="container">
+        <div className="container">
             <div className="row">
                 <div className="col-md-6 offset-md-3 shadow p-4">
                     <h3 className="mb-4">Login</h3>

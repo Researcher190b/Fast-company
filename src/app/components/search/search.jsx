@@ -1,46 +1,49 @@
+// ========================== не используется ==========================
+
 import React, { useState } from "react";
-// import SearchTextName from "./searchTextName";
+import PropTypes from "prop-types";
 
 // Таблица:
 
 const Search = () => {
-    const [data, setData] = useState({ search: "" });
+    const [search, setsearch] = useState({ search: "" });
 
     // универсальный метод для нескольких полей (создание форм):
 
     const characterSearch = ({ target }) => {
-        setData((prevState) => ({
+        setsearch((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
     };
 
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        console.log(search);
+    };
+
     return (
-        <form action="">
-            {/* <SearchTextName
-                placeholder="Search..."
-                // type="text"
-                name="search"
-                value={data.search}
-                onChange={characterSearch}
-            /> */}
+        <form onSubmit={handleSubmit}>
             <div className="container">
-                {/* 1-й способ идентификации полей: */}
-                {/* <label htmlFor="search">Search...</label>
-                    <input type="text" id="search" name="search" /> */}
                 {/* 2-й способ идентификации полей: */}
-                <label className="row">
+                {/* <label className="row" type="submit"> */}
+                <div className="row">
                     <input
                         placeholder="Search..."
                         type="text"
                         name="search"
-                        value={data.search}
+                        value={search.search}
                         onChange={characterSearch}
                     />
-                </label>
+                </div>
+                {/* </label> */}
             </div>
         </form>
     );
+};
+
+Search.propTypes = {
+    value: PropTypes.array
 };
 
 export default Search;
