@@ -7,16 +7,17 @@ import GroupList from "./groupList";
 import SearchStatus from "./searchStatus";
 import UserTable from "./usersTable";
 import _ from "lodash";
+// import Search from "./search/search"; // не используется, (2 дня потратил впустую из-за своего решения)
 
 const UsersList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [professions, setProfessions] = useState();
     const [selectedProf, setSelectedProf] = useState();
     const [sortBy, setSortBy] = useState({ path: "name", order: "asc" });
-
+    const [users, setUsers] = useState();
+    const [letter, setLetter] = useState("");
     const pageSize = 6;
 
-    const [users, setUsers] = useState();
     useEffect(() => {
         api.users.fetchAll().then((data) => setUsers(data));
     }, []);
@@ -45,9 +46,10 @@ const UsersList = () => {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [selectedProf]);
+    }, [selectedProf, letter]);
 
     const handleProfessionSelect = (item) => {
+        setLetter("");
         setSelectedProf(item);
     };
 
@@ -67,17 +69,25 @@ const UsersList = () => {
                           JSON.stringify(user.profession) ===
                           JSON.stringify(selectedProf)
                   )
+                : letter
+                ? users.filter((user) =>
+                      user.name.toLowerCase().includes(letter.toLowerCase())
+                  )
                 : users;
-
-        // console.log(filteredUsers); // выводим массив
 
         const count = filteredUsers.length;
         const sortedUsers = _.orderBy(
             filteredUsers,
             [sortBy.path],
             [sortBy.order]
-        ); // для фильтрации данных
+        );
         const usersCrop = paginate(sortedUsers, currentPage, pageSize);
+
+        const handleLetter = (e) => {
+            setSelectedProf(undefined);
+            setLetter(e.target.value);
+        };
+        // console.log(letter);
 
         return (
             <div className="d-flex">
@@ -88,17 +98,17 @@ const UsersList = () => {
                             items={professions}
                             onItemSelect={handleProfessionSelect}
                         />
-                        {/* <button
-                        className="btn btn-secondary mt-2"
-                        onClick={clearFilter}
-                    >
-                        {" "}
-                        Очистить
-                    </button> */}
                     </div>
                 )}
                 <div className="d-flex flex-column">
                     <SearchStatus length={count} />
+                    <input
+                        type="text"
+                        placeholder="Search..."
+                        name="search"
+                        value={letter}
+                        onChange={handleLetter}
+                    />
                     {count > 0 && (
                         <UserTable
                             users={usersCrop}
