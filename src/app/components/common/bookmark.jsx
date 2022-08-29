@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import "../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+import "../../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 const BookMark = ({ status, ...rest }) => {
     return (

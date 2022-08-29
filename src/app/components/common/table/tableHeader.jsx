@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import "../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
+import "../../../../../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 
 const TableHeader = ({ onSort, selectedSort, columns }) => {
     const handleSort = (item) => {
