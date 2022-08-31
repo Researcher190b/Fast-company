@@ -1,17 +1,35 @@
 import React, { useEffect, useState } from "react";
 import { validator } from "../../utils/valitator";
 import TextField from "../common/form/textField";
+import api from "../../api";
+import SelectField from "../common/form/selectField";
+import RadioField from "../common/form/radioField";
+import MultiSelectField from "../common/form/multiSelectField";
 
-const LoginForm = () => {
-    const [data, setData] = useState({ email: "", password: "" });
+const RegisterForm = () => {
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        profession: "",
+        sex: "male",
+        qualities: []
+    });
+
+    const [qualities, setQualities] = useState({});
     const [errors, setErrors] = useState({});
+    const [professions, setProfessions] = useState([]);
 
-    const handleChange = ({ target }) => {
+    const handleChange = (target) => {
+        console.log(target);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
     };
+    useEffect(() => {
+        api.professions.fetchAll().then((data) => setProfessions(data));
+        api.qualities.fetchAll().then((data) => setQualities(data));
+    }, []);
 
     const validatorConfig = {
         email: {
@@ -33,6 +51,11 @@ const LoginForm = () => {
             min: {
                 message: "Пароль должен состоять минимум из 8 символов",
                 value: 8
+            }
+        },
+        profession: {
+            isRequired: {
+                message: "Обязательно для заполнения"
             }
         }
     };
@@ -73,6 +96,35 @@ const LoginForm = () => {
                 onChange={handleChange}
                 error={errors.password}
             />
+
+            <SelectField
+                label="Выберите вашу профессию"
+                defaultOption="Choose..."
+                options={professions}
+                onChange={handleChange}
+                value={data.profession}
+                error={errors.profession}
+            />
+
+            <RadioField
+                options={[
+                    { name: "Male", value: "male" },
+                    { name: "Female", value: "female" },
+                    { name: "Other", value: "other" }
+                ]}
+                value={data.sex}
+                name="sex"
+                onChange={handleChange}
+                label="Выерите ваш пол"
+            />
+
+            <MultiSelectField
+                options={qualities}
+                onChange={handleChange}
+                name="qualities"
+                label="Выберите ваши качества"
+            />
+
             <button
                 type="submit"
                 disabled={!isValid}
@@ -84,4 +136,4 @@ const LoginForm = () => {
     );
 };
 
-export default LoginForm;
+export default RegisterForm;
