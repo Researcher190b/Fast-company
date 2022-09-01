@@ -5,6 +5,7 @@ import api from "../../api";
 import SelectField from "../common/form/selectField";
 import RadioField from "../common/form/radioField";
 import MultiSelectField from "../common/form/multiSelectField";
+import CheckBoxField from "../common/form/checkBoxField";
 
 const RegisterForm = () => {
     const [data, setData] = useState({
@@ -12,7 +13,8 @@ const RegisterForm = () => {
         password: "",
         profession: "",
         sex: "male",
-        qualities: []
+        qualities: [],
+        licence: false
     });
 
     const [qualities, setQualities] = useState({});
@@ -20,7 +22,6 @@ const RegisterForm = () => {
     const [professions, setProfessions] = useState([]);
 
     const handleChange = (target) => {
-        console.log(target);
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
@@ -40,6 +41,7 @@ const RegisterForm = () => {
                 message: "Email введен не корректно"
             }
         },
+
         password: {
             isRequired: { message: "Пароль обязателен для заполнения" },
             isCapitalSymbol: {
@@ -53,9 +55,16 @@ const RegisterForm = () => {
                 value: 8
             }
         },
+
         profession: {
             isRequired: {
                 message: "Обязательно для заполнения"
+            }
+        },
+
+        licence: {
+            isRequired: {
+                message: "Необходимо принять лицензионное соглашение"
             }
         }
     };
@@ -124,6 +133,15 @@ const RegisterForm = () => {
                 name="qualities"
                 label="Выберите ваши качества"
             />
+
+            <CheckBoxField
+                value={data.licence}
+                onChange={handleChange}
+                name="licence"
+                error={errors.licence}
+            >
+                <a>Подтвердить лицензионное соглашение</a>
+            </CheckBoxField>
 
             <button
                 type="submit"

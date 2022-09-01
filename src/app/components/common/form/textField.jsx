@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 const TextField = ({ label, type, name, value, onChange, error }) => {
     const [showPassword, setShowPassword] = useState(false);
+
     const getInputClasses = () => {
         return "form-control" + (error ? " is-invalid" : "");
     };
