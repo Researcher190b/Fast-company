@@ -1,22 +1,58 @@
 import React, { useEffect, useState } from "react";
 import { validator } from "../../utils/valitator";
 import TextField from "../common/form/textField";
+import CheckBoxField from "../common/form/checkBoxField";
+// ================================
+// import * as yup from "yup";
+// ================================
 
 const LoginForm = () => {
-    const [data, setData] = useState({ email: "", password: "" });
+    const [data, setData] = useState({
+        email: "",
+        password: "",
+        stayOf: false
+    });
     const [errors, setErrors] = useState({});
 
-    const handleChange = ({ target }) => {
+    const handleChange = (target) => {
         setData((prevState) => ({
             ...prevState,
             [target.name]: target.value
         }));
     };
 
+    // ================================
+    // const validateScheme = yup.object().shape({
+    //     password: yup
+    //         .string()
+    //         .required("Пароль обязателен для заполнения")
+    //         .matches(
+    //             /(?=.*[A-Z])/,
+    //             "Пароль должен содержать хотя бы одну заглавную букву"
+    //         )
+    //         .matches(
+    //             /(?=.*[0-9])/,
+    //             "Пароль должен содержать хотя бы одно число"
+    //         )
+    //         .matches(
+    //             /(?=.*[!@#$%^&*])/,
+    //             "Пароль должен содержать хотя-бы один из спец. символов [ !, @, #, $, %, ^, &, * ]"
+    //         )
+    //         .matches(
+    //             /(?=.{8,})/,
+    //             "Пароль должен состоять минимум из 8 символов"
+    //         ),
+    //     email: yup
+    //         .string()
+    //         .required("Электронная почта обязательна для заполнения")
+    //         .email("Email введен не корректно")
+    // });
+    // ================================
+
     const validatorConfig = {
         email: {
             isRequired: {
-                message: "Эллектронная почта обязательна для заполнения"
+                message: "Электронная почта обязательна для заполнения"
             },
             isEmail: {
                 message: "Email введен не корректно"
@@ -44,6 +80,12 @@ const LoginForm = () => {
     const validate = () => {
         const errors = validator(data, validatorConfig);
 
+        // ================================
+        // validateScheme
+        //     .validate(data)
+        //     .then(() => setErrors({}))
+        //     .catch((err) => setErrors({ [err.pach]: err.message }));
+        // ================================
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
@@ -56,38 +98,42 @@ const LoginForm = () => {
         if (!isValid) return;
         console.log(data);
     };
+
     return (
-        <div className="container">
-            <div className="row">
-                <div className="col-md-6 offset-md-3 shadow p-4">
-                    <h3 className="mb-4">Login</h3>
-                    <form onSubmit={handleSubmit}>
-                        <TextField
-                            label="Электронная почта"
-                            name="email"
-                            value={data.email}
-                            onChange={handleChange}
-                            error={errors.email}
-                        />
-                        <TextField
-                            label="Пароль"
-                            type="password"
-                            name="password"
-                            value={data.password}
-                            onChange={handleChange}
-                            error={errors.password}
-                        />
-                        <button
-                            type="submit"
-                            disabled={!isValid}
-                            className="btn btn-primary w-100 mx-auto"
-                        >
-                            Submit
-                        </button>
-                    </form>
-                </div>
-            </div>
-        </div>
+        <form onSubmit={handleSubmit}>
+            <TextField
+                label="Электронная почта"
+                name="email"
+                value={data.email}
+                onChange={handleChange}
+                error={errors.email}
+            />
+
+            <TextField
+                label="Пароль"
+                type="password"
+                name="password"
+                value={data.password}
+                onChange={handleChange}
+                error={errors.password}
+            />
+
+            <CheckBoxField
+                value={data.stayOf}
+                onChange={handleChange}
+                name="stayOf"
+            >
+                Оставаться в системе
+            </CheckBoxField>
+
+            <button
+                type="submit"
+                disabled={!isValid}
+                className="btn btn-primary w-100 mx-auto"
+            >
+                Submit
+            </button>
+        </form>
     );
 };
 
