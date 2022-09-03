@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import { validator } from "../../utils/valitator";
 import TextField from "../common/form/textField";
 import CheckBoxField from "../common/form/checkBoxField";
+// ================================
+// import * as yup from "yup";
+// ================================
 
 const LoginForm = () => {
     const [data, setData] = useState({
@@ -18,10 +21,38 @@ const LoginForm = () => {
         }));
     };
 
+    // ================================
+    // const validateScheme = yup.object().shape({
+    //     password: yup
+    //         .string()
+    //         .required("Пароль обязателен для заполнения")
+    //         .matches(
+    //             /(?=.*[A-Z])/,
+    //             "Пароль должен содержать хотя бы одну заглавную букву"
+    //         )
+    //         .matches(
+    //             /(?=.*[0-9])/,
+    //             "Пароль должен содержать хотя бы одно число"
+    //         )
+    //         .matches(
+    //             /(?=.*[!@#$%^&*])/,
+    //             "Пароль должен содержать хотя-бы один из спец. символов [ !, @, #, $, %, ^, &, * ]"
+    //         )
+    //         .matches(
+    //             /(?=.{8,})/,
+    //             "Пароль должен состоять минимум из 8 символов"
+    //         ),
+    //     email: yup
+    //         .string()
+    //         .required("Электронная почта обязательна для заполнения")
+    //         .email("Email введен не корректно")
+    // });
+    // ================================
+
     const validatorConfig = {
         email: {
             isRequired: {
-                message: "Эллектронная почта обязательна для заполнения"
+                message: "Электронная почта обязательна для заполнения"
             },
             isEmail: {
                 message: "Email введен не корректно"
@@ -49,6 +80,12 @@ const LoginForm = () => {
     const validate = () => {
         const errors = validator(data, validatorConfig);
 
+        // ================================
+        // validateScheme
+        //     .validate(data)
+        //     .then(() => setErrors({}))
+        //     .catch((err) => setErrors({ [err.pach]: err.message }));
+        // ================================
         setErrors(errors);
         return Object.keys(errors).length === 0;
     };
